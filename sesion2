@@ -1,0 +1,45 @@
+#RETO 1
+#1
+select * from articulo where nombre like '%pasta%';
+
+#2
+select * from articulo where nombre like '%Cannelloni%';
+
+#3
+select * from articulo where nombre like '%-%';
+
+#4
+select * from puesto where nombre like '%Designer%';
+
+#5
+select * from puesto where nombre like '%Developer%';
+
+
+#RETO 2
+
+#1 - Promedio de salario de puestos
+select avg(salario) from puesto;
+
+#2 - #Arts que incluyen 'Pasta" en su nombre
+select count(*) from articulo where nombre like '%pasta%';
+
+#3 - Salarios mín y max
+select min(salario) as Salario_Minimo, max(salario) as Salario_Maximo from puesto;
+
+#4 - Suma del salario de los últimos cinco puestos agregados
+select sum(salario) as Salarios_Last5 from puesto where id_puesto > (select max(id_puesto) as id_max from puesto)-5;
+
+
+#RETO 3
+
+#1 - #Registros por puesto
+select nombre, count(nombre) as Ocupantes from puesto group by nombre;
+
+#2 - Suma de salarios por puesto
+select nombre, sum(salario) as Sum_Salario_Puestos from puesto group by nombre;
+
+#3 - Ventas totales por vendedor
+select id_empleado, count(id_empleado) as Ventas_Totales from venta group by id_empleado order by id_empleado;
+
+#4 - Ventas totales por artículos
+select id_articulo, count(*) as Articulos_Totales from venta group by id_articulo order by id_articulo;
