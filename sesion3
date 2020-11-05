@@ -1,0 +1,49 @@
+#RETO 1
+#1. Nombres de empleados con sueldo mayor a 10 mil
+select nombre, apellido_paterno from empleado where id_puesto in
+(select id_puesto from puesto where salario > 10000);
+
+#2. Cantidad mínima y máxima de ventas de cada empleado
+select id_empleado, min(total_ventas), max(total_ventas) from 
+(select clave, id_empleado, count(*) total_ventas from
+venta group by clave, id_empleado) as Sub1
+group by id_empleado;
+
+#3. Claves de venta que incluyen artículos cuyos precios son mayores a 5 mil
+select clave, id_articulo from venta where id_articulo in
+(select id_articulo from articulo where precio > 5000);
+
+
+#RETO 2
+#1. Nombre de los empleados que realizaron cada venta
+show keys from venta;
+select clave, concat (nombre, ' ', apellido_paterno) as Nombre_Completo from venta as Ventas join empleado as Empleados on Ventas.id_empleado = Empleados.id_empleado order by clave;
+
+#2. Nombres de artículos vendidos
+show keys from venta;
+select clave, nombre from venta as Ventas join articulo as Articulos on Articulos.id_articulo= Ventas.id_articulo order by clave;
+
+#3. Total de cada venta
+show keys from articulo;
+select sum(precio) from articulo as totales left join venta as ventas on totales.id_articulo= ventas.id_articulo;
+select clave, sum(precio) as VentaTotal from venta as Ventas join articulo as Articulos on Ventas.id_articulo = Articulos.id_articulo group by clave order by clave;
+
+
+#RETO 3
+#1. Vista para obtener el puesto de un empleado.
+create view empleadoss_154 as select concat(emp.nombre, ' ', emp.apellido_paterno), puestos.nombre from empleado emp join puesto puestos on emp.id_puesto=puestos.id_puesto;
+select * from empleadoss_154;
+
+#2. Articulos que ha vendido cada empleado.
+create view ventas_empleado_154 as select vent.clave, concat(emp.nombre, ' ', emp.apellido_paterno) Empleados, art.nombre Articulos from venta vent
+join empleado emp on emp.id_empleado=vent.id_empleado
+join articulo art on art.id_articulo=vent.id_articulo order by clave;
+
+select * from ventas_empleado_154;
+
+#3. Puesto que ha tenido más ventas
+create view mas_ventass_154 as select pst.nombre Puestos, count(vent.clave) Totales from venta vent
+join empleado emp on emp.id_empleado=vent.id_empleado
+join puesto pst on emp.id_puesto=pst.id_puesto group by pst.nombre;
+
+select * from mas_ventass_154 order by Totales desc limit 1;
