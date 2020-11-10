@@ -1,0 +1,92 @@
+###### RETO 1
+
+#1. Fechas, nombres y textos
+{
+ project: {
+  date: 1,
+  name: 1,
+  text: 1,
+  _id: 0
+ }
+}
+
+#2. Títulos, elencos y años
+
+{
+ project: {
+  title: 1,
+  cast: 1,
+  year: 1,
+  _id: 0
+ }
+}
+
+#3. Nombres y passwords
+
+{
+ project: {
+  name: 1,
+  password: 1,
+  _id: 0
+ }
+}
+
+
+###### RETO 2
+
+#1. Comentarios de Greg Powell
+
+{
+ filter: {
+  name: 'Greg Powell'
+ },
+ project: {
+  _id: 0,
+  text: 1
+ }
+}
+
+#2. Comentarios de Greag Powell o Mercedes Tyler
+{
+ filter: {
+  $or: [
+   {
+    name: 'Greg Powell'
+   },
+   {
+    name: 'Mercedes Tyler'
+   }
+  ]
+ },
+ project: {
+  _id: 0,
+  text: 1,
+  name: 1
+ }
+}
+
+#3. Película con más comentarios
+{
+ project: {
+  num_mflix_comments: 1,
+  title: 1,
+  _id: 0
+ },
+ sort: {
+  num_mflix_comments: -1
+ },
+ limit: 1
+}
+
+#4. 5 plículas con más comentarios
+{
+ project: {
+  num_mflix_comments: 1,
+  title: 1,
+  _id: 0
+ },
+ sort: {
+  num_mflix_comments: -1
+ },
+ limit: 5
+}
