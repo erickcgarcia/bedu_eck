@@ -1,0 +1,21 @@
+####RETO 1
+
+# 0. Crear DB
+create database if not exists Movies;
+use Movies;
+
+# 1. Crear tabla Movies
+create table if not exists movies  (
+id int primary key,
+title varchar(50),
+generos varchar(50)
+);
+
+# 2. Crear tabla Ratings
+create table if not exists ratings (
+userid int,
+movieid int,
+rating int, 
+time_stamp bigint);
+
+
