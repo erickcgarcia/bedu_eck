@@ -45,7 +45,22 @@ PROJECT: {_id: 1, house_rules: 1}
 }
 
 
-#### RETO 3
+#### RETO 3: #Publicaciones que tienen conexión a Internet (Wifi/Ethernet)
+
+#Stage 1
+
+$match
+{
+  amenities: {$in: ["Wifi", "Ethernet"]}
+}
 
 
+#Stage 2
 
+$sum
+{
+  _id: null,
+  total: {
+    $sum: 1
+  }
+}
